@@ -2,8 +2,10 @@ package com.todo.api.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.todo.api.model.ToDo;
@@ -54,6 +56,18 @@ public class ToDoService {
 
 	public List<ToDo> findAllByUerID(Long userID) {
 		return toDoRepository.findAllByUserID(userID);
+	}
+	
+	
+	@Async
+	public CompletableFuture<String> getAsyncData() {
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return  CompletableFuture.completedFuture(Thread.currentThread().getName()); 
 	}
 	
 

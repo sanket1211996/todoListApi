@@ -1,6 +1,7 @@
 package com.todo.api.comman;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.todo.api.model.User;
 import com.todo.api.repository.UserRepository;
+import com.todo.api.service.ToDoService;
 
 @RestController
 @CrossOrigin
@@ -22,6 +24,9 @@ public class AuthController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	ToDoService todoService;
 	
 	@PostMapping("/signUp")
 	public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -41,6 +46,22 @@ public class AuthController {
 		} else {
 			return new ResponseEntity<>(users, HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@GetMapping("/getdata")
+	public ResponseEntity<String> name() {
+		
+		try {
+			return new ResponseEntity<String>(todoService.getAsyncData().get(), HttpStatus.OK);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	
