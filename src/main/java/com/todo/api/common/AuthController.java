@@ -1,4 +1,4 @@
-package com.todo.api.comman;
+package com.todo.api.common;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -44,7 +44,7 @@ public class AuthController {
 		if(users != null) {
 			return new ResponseEntity<>(users, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(users, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(users, HttpStatus.BAD_REQUEST); //HTTP 400
 		}
 	}
 	
@@ -54,14 +54,12 @@ public class AuthController {
 		try {
 			return new ResponseEntity<String>(todoService.getAsyncData().get(), HttpStatus.OK);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); //HTTP 500
 	}
 	
 	

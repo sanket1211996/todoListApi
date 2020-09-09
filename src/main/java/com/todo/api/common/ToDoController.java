@@ -1,4 +1,4 @@
-package com.todo.api.comman;
+package com.todo.api.common;
 
 import java.util.List;
 import java.util.Optional;
@@ -83,14 +83,13 @@ public class ToDoController {
 	}
 	
 	@DeleteMapping("/todos/{id}")
-	@CrossOrigin
 	public ResponseEntity<HttpStatus> deleteTodo(@PathVariable Long id) {
 		
 		  boolean isDeleted = todoService.deleteToDo(id);
 		  if(isDeleted)
-			  return new ResponseEntity<>(HttpStatus.OK);
+			  return new ResponseEntity<>(HttpStatus.OK); // HTTP 200
 		  else 
-			  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			  return new ResponseEntity<>(HttpStatus.NOT_FOUND); //HTTP 204
 	}
 	
 
