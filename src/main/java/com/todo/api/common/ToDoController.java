@@ -40,9 +40,9 @@ public class ToDoController {
 	
 	@GetMapping("/user/{username}")
 	public ResponseEntity<User> getCurrentUser(@PathVariable String username) {
-		User _user = userRepository.findByUsername(username);
-		_user.setPassword("");
-		return new ResponseEntity<>(_user,HttpStatus.OK);
+		User user = userRepository.findByUsername(username);
+		user.setPassword("");
+		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 	
 	@GetMapping("/todos/user/{userID}")
